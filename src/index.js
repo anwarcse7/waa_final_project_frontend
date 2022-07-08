@@ -9,6 +9,7 @@ import Dashboard from "./components/dashboard";
 import Login from "./components/login";
 import Registration from "./components/registration";
 import Profile from "./components/profile";
+import Jobs from "./components/Jobs";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,6 +24,7 @@ root.render(
       <Route path="login" element={<Login />} />
       <Route path="registration" element={<Registration />} />
       <Route path="profile" element={<Profile />} />
+      <Route path="jobs" element={<Jobs />} />
     </Routes>
   </BrowserRouter>
 );
