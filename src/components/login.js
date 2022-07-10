@@ -1,3 +1,4 @@
+import React from 'react';
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
@@ -10,7 +11,6 @@ const Login = () => {
               <Col>
               <br></br><br></br><br></br><br></br>
                   <Card>
-                      
             <Card.Header>Login</Card.Header>
             <Card.Body>
               <Form>

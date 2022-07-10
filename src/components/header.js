@@ -8,13 +8,14 @@ const Header = () => (
   <div className="header">
       <Navbar bg="primary" variant="dark">
         <Container>
-        <Navbar.Brand href="#">Home</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/dashboard">Home</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="/dashboard">Dashboard</Nav.Link> 
-          <Nav.Link href="/login">Login</Nav.Link> 
-          <Nav.Link href="/registration">Registration</Nav.Link>
-          <Nav.Link href="/profile">Profile</Nav.Link>
-          <Nav.Link href="/Jobs">Jobs</Nav.Link>
+          <Nav.Link as={Link} to="/dashboard">Dashboard </Nav.Link>
+          <Nav.Link as={Link} to="/login">Login</Nav.Link> 
+          <Nav.Link as={Link} to="/registration">Registration</Nav.Link>
+          <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+          <Nav.Link as={Link} to="/Jobs">Jobs</Nav.Link>
+          <Nav.Link as={Link} to="/StudentList">Student</Nav.Link>
         </Nav>
         </Container>
       </Navbar>
