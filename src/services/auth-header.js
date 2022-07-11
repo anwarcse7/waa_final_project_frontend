@@ -3,8 +3,7 @@ export default function authHeader() {
   if (user && user.access_token) {
     const token = user.access_token;
     return {
-      "Content-Type": 'application/json',  
-      "Authorization": 'Bearer ' + token
+      Authorization: `Bearer ${token}`,
     };
     } else {
       return {};

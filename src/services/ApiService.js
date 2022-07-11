@@ -25,10 +25,43 @@ class ApiService {
     }
 
     jobPost(data) {
-        data.tag = ["Tag 1", "Tag 2"];
-        console.log(data);
-        return axios.post(MAIN_URL + 'student/post-job', data, { headers: authHeader() });
-      }
+        
+
+        try {
+            data.tag = ["Tag 1", "Tag 2"];
+            // console.log(data);
+            const user = JSON.parse(localStorage.getItem('user'));
+            const token = user.access_token;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            console.log(axios.defaults.headers.common);
+            console.log(data.description);
+            return axios.post(MAIN_URL + 'student/post-job', {
+                description: data.description,
+                state: data.state,
+                city: data.city,
+                companyName: data.companyName,
+                tag: ["Tag 2", "Tag 3"]
+            });
+        } catch (error) {
+            console.error(error.response.data); 
+        }
+    }
+    getJob() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.access_token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        console.log(axios.defaults.headers.common);
+        return axios.get(MAIN_URL + 'student/get-job');
+    }
+
+    getTag() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.access_token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        console.log(axios.defaults.headers.common);
+        return axios.get(MAIN_URL + 'common/getAllTag');
+    }
+
 }
 
 export default new ApiService();

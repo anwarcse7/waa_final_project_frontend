@@ -13,7 +13,7 @@ import StudentList from "./components/student-component/StudentList";
 import CreateStudent from "./components/student-component/CreateStudent";
 import Login from "./components/auth-component/login.component";
 import JobPost from "./components/job-component/job-post";
-
+import JobList from "./components/job-component/job-list";
 function App() {
   const [token, setToken] = useState();
   let user = localStorage.getItem("user");
@@ -33,6 +33,8 @@ function App() {
         <Route path = "/add-student/:id" component = {CreateStudent}></Route>
         
         <Route path="job-post" element={<JobPost />} />
+        <Route path="job-list" element={<JobList />} />
+
       </Routes>
       <Footer />
     </Router>

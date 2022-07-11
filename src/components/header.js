@@ -23,6 +23,7 @@ const Header = () => (
           <Nav.Link as={Link} to="/Jobs">Jobs</Nav.Link>
           <Nav.Link as={Link} to="/StudentList">Student</Nav.Link>
           <Nav.Link as={Link} to="/job-post">Job Post</Nav.Link>
+          <Nav.Link as={Link} to="/job-list">Job List</Nav.Link>
           <Nav.Link onClick={() => logout()}>Logout</Nav.Link>
         </Nav>
         </Container>
