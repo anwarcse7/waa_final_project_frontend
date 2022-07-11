@@ -1,217 +1,110 @@
-// import { useState } from "react";
-import React, { Component, useState } from 'react'
-import ReactDOM from "react-dom/client";
+import React, { Component } from "react";
 import Multiselect from "multiselect-react-dropdown";
 import ApiService from "../../services/ApiService";
 
-// class JobPost extends Component {
-//   constructor(props) {
-//     super(props);
+class JobPost extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tags: [],
+    };
 
-//     this.state = {
-//       tags: [],
-//       inputs: {},
-//       setInputs: {}
-//     };
-//   }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-//   url = "http://localhost:8081/api/v1/common/getAllTag";
-//   componentDidMount() {
-//     ApiService.getJob()
-//       .then((response) => {
-//         console.log(response.data.jobList);
-//         this.setState({ tags: response.data.jobList });
-//       })
-//       .catch();
-//   }
+  componentDidMount() {
+    ApiService.getAllData(ApiService.TAG_LIST).then((res) => {
+      this.setState({ tags: res.data.tagList });
+      console.log(res.data.tagList);
+    });
+  }
 
-//     handleChange = (event) => {
-//         const name = event.target.name;
-//         const value = event.target.value;
-//         setInputs(values => ({...values, [name]: value}))
-//     }
+  handleChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
+  }
 
-//     handleSubmit = (event) => {
-//         event.preventDefault();
-//         console.log(inputs);
+  handleSubmit(event) {
+    event.preventDefault();
+    const data = {
+      id: null,
+      description: this.state.description,
+      tag: ["Tag 1", "Tag 2"],
+      state: this.state.state,
+      city: this.state.city,
+      companyName: this.state.companyName,
+    };
+    console.log(data);
+    ApiService.postData(ApiService.JOB_POST, data).then(
+      (res) => {
+        console.log(res);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
-//         ApiService.jobPost(inputs).then((response) => {
-//             console.log(response);
-//         }).then(response => {
-//           console.log(response.data);
-//           // if (response.data.access_token) {
-//           //   localStorage.setItem("user", JSON.stringify(response.data));
-//           // }
-//           // return response.data;
-//         });
-//     }
+  onSelect(selectedList, selectedItem) {}
 
-//   render() {
-//     return (
-//       <form onSubmit={handleSubmit}>
-//         <label>
-//           Enter your description:
-//           <input
-//             type="text"
-//             name="description"
-//             value={inputs.description || ""}
-//             onChange={handleChange}
-//           />
-//         </label>
-//         <label>
-//           Enter your state:
-//           <input
-//             type="text"
-//             name="state"
-//             value={inputs.state || ""}
-//             onChange={handleChange}
-//           />
-//         </label>
-//         <label>
-//           Enter your city:
-//           <input
-//             type="text"
-//             name="city"
-//             value={inputs.city || ""}
-//             onChange={handleChange}
-//           />
-//         </label>
-//         <label>
-//           Enter companyName:
-//           <input
-//             type="text"
-//             name="companyName"
-//             value={inputs.companyName || ""}
-//             onChange={handleChange}
-//           />
-//         </label>
-//         <Multiselect
-//           isObject={false}
-//           onKeyPressFn={function noRefCheck() {}}
-//           onRemove={function noRefCheck() {}}
-//           onSearch={function noRefCheck() {}}
-//           onSelect={function noRefCheck() {}}
-//           options={[
-//             "Option 1",
-//             "Option 2",
-//             "Option 3",
-//             "Option 4",
-//             "Option 5",
-//             "Option 10",
-//             "Option 20",
-//             "Option 30",
-//             "Option 40",
-//             "Option 50",
-//           ]}
-//         />
-//         <input type="submit" />
-//       </form>
-//     );
-//   }
-// }
+  onRemove(selectedList, removedItem) {}
 
-// export default JobPost;
-
-export default function JobPost() {
-  const [inputs, setInputs, tags] = useState({});
-//   this.state = {
-//     options: [{name: 'Option 1', id: 1},{name: 'Option 2', id: 2}]
-// };
-
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(inputs);
-
-        ApiService.jobPost(inputs).then((response) => {
-            console.log(response);
-        }).then(response => {
-          console.log(response.data);
-          // if (response.data.access_token) {
-          //   localStorage.setItem("user", JSON.stringify(response.data));
-          // }
-          // return response.data;
-        });
-    }
-  
-  //   url = "http://localhost:8081/api/v1/common/getAllTag";
-  // const getAllTag = () => {
-  //   ApiService.getJob()
-  //     .then((response) => {
-  //       console.log(response.data.tagList);
-  //       this.setState({ tags: response.data.tagList });
-  //     })
-  //     .catch();
-  // }
-
-  React.useEffect(() => {
-      ApiService.getTag()
-      .then((response) => {
-        console.log(response.data.tagList);
-        this.setState({ tags: response.data.tagList });
-      })
-      .catch();
-  });
-
+  render() {
     return (
-        <form onSubmit={handleSubmit}>
-          <label>Enter your description:
-          <input
-            type="text"
-            name="description"
-            value={inputs.description || ""}
-            onChange={handleChange}
-          />
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Enter your description:
+            <input
+              type="text"
+              name="description"
+              //  value={inputs.description || ""}
+              onChange={this.handleChange}
+            />
           </label>
-          <label>Enter your state:
+          <label>
+            Enter your state:
             <input
               type="text"
               name="state"
-              value={inputs.state || ""}
-              onChange={handleChange}
+              //  value={inputs.state || ""}
+              onChange={this.handleChange}
             />
-            </label>
-            <label>Enter your city:
+          </label>
+          <label>
+            Enter your city:
             <input
               type="text"
               name="city"
-              value={inputs.city || ""}
-              onChange={handleChange}
+              //  value={inputs.city || ""}
+              onChange={this.handleChange}
             />
-            </label>
-            <label>Enter companyName:
+          </label>
+          <label>
+            Enter companyName:
             <input
               type="text"
               name="companyName"
-              value={inputs.companyName || ""}
-              onChange={handleChange}
+              //  value={inputs.companyName || ""}
+              onChange={this.handleChange}
             />
-        </label>
-        <Multiselect
-            isObject={false}
-            onKeyPressFn={function noRefCheck(){}}
-            onRemove={function noRefCheck(){}}
-            onSearch={function noRefCheck(){}}
-            onSelect={function noRefCheck(){}}
-            options={[
-                          "Option 1",
-                          "Option 2",
-                          "Option 3",
-                          "Option 4",
-                          "Option 5",
-                          "Option 10",
-                          "Option 20",
-                          "Option 30",
-                          "Option 40",
-                          "Option 50",
-                        ]}
+          </label>
+          <Multiselect
+            options={this.state.tags}
+            onSelect={this.onSelect}
+            onRemove={this.onRemove}
+            displayValue="tags"
           />
-            <input type="submit" />
+          <input type="submit" />
         </form>
-      )
+      </div>
+    );
+  }
 }
+
+export default JobPost;

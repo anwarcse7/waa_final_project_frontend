@@ -4,22 +4,16 @@ import ApiService from '../../services/ApiService';
 class JobList extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
                 jobs: []
         }
     }
 
-    url = "http://localhost:8081/api/v1/student/get-job";
     componentDidMount(){
-        // ApiService.getAll(this.url).then((res) => {
-        //     this.setState({ jobs: res.data});
-        // });
-
-        ApiService.getJob().then((response) => {
-            console.log(response.data.jobList);
-            this.setState({ jobs: response.data.jobList});
-        }).catch();
+        ApiService.getAllData(ApiService.JOB_LIST).then((res) => {
+            this.setState({ jobs: res.data.jobList });
+            console.log(res.data.jobList);
+        });
     }
     render() {
         return (
@@ -50,9 +44,7 @@ class JobList extends Component {
                                 }
                             </tbody>
                         </table>
-
                  </div>
-
             </div>
         )
     }
