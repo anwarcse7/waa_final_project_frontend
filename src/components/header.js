@@ -17,13 +17,12 @@ const Header = () => (
         <Navbar.Brand as={Link} to="/dashboard">Home</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/dashboard">Dashboard </Nav.Link>
-          {/* <Nav.Link as={Link} to="/login">Login</Nav.Link>  */}
-          <Nav.Link as={Link} to="/registration">Registration</Nav.Link>
           <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
           <Nav.Link as={Link} to="/Jobs">Jobs</Nav.Link>
-          <Nav.Link as={Link} to="/StudentList">Student</Nav.Link>
           <Nav.Link as={Link} to="/job-post">Job Post</Nav.Link>
           <Nav.Link as={Link} to="/job-list">Job List</Nav.Link>
+          <Nav.Link as={Link} to="/job-update">Job Update</Nav.Link>
+          <Nav.Link as={Link} to="/student-list">Student</Nav.Link>
           <Nav.Link onClick={() => logout()}>Logout</Nav.Link>
         </Nav>
         </Container>

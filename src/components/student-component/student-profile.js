@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import ApiService from "../../services/ApiService";
 
-class JobList extends Component {
+class StudentProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobs: [],
+      student: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -13,9 +13,9 @@ class JobList extends Component {
   }
 
   componentDidMount() {
-    ApiService.getAllData(ApiService.JOB_LIST).then((res) => {
-      this.setState({ jobs: res.data.jobList });
-      console.log(res);
+    ApiService.getAllData(ApiService.STUDENT_LIST).then((res) => {
+      this.setState({ students: res.data.data });
+      console.log(res.data.data);
     });
   }
 
@@ -31,16 +31,17 @@ class JobList extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = {
-      tags: this.state.tags,
       state: this.state.state,
       city: this.state.city,
-      companyName: this.state.companyName,
+      major: this.state.major,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
     };
-    ApiService.postData(ApiService.SEARCH_JOB, data).then(
+    ApiService.postData(ApiService.SEARCH_STUDENT, data).then(
       (res) => {
         console.log(res.data);
-        this.setState({ jobs: res.data.results });
-        console.log(res.data.results);
+        this.setState({ students: res.data.data });
+        console.log(res.data.data);
       },
       (error) => {
         console.log(error);
@@ -55,12 +56,6 @@ class JobList extends Component {
         <form className="form-inline" onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="col-md-3">
-              <label>Tag Name:</label>
-              <input type="text" className="form-control" name="tags"
-                //  value={inputs.description || ""}
-                onChange={this.handleChange}/>
-            </div>
-            <div className="col-md-3">
               <label>State:</label>
               <input type="text" className="form-control" name="state"
                 //  value={inputs.description || ""}
@@ -73,49 +68,34 @@ class JobList extends Component {
                 onChange={this.handleChange} />
             </div>
             <div className="col-md-3">
-              <label>Company:</label>
-              <input type="text" className="form-control" name="companyName"
+              <label>Major:</label>
+              <input type="text" className="form-control" name="major"
                 //  value={inputs.description || ""}
                 onChange={this.handleChange} />
             </div>
-
-            <div className="col-md-12">
+            <div className="col-md-3">
+              <label>Firstname:</label>
+              <input type="text" className="form-control" name="firstname"
+                //  value={inputs.description || ""}
+                onChange={this.handleChange} />
+            </div>
+            <div className="col-md-3">
+              <label>Lastname:</label>
+              <input type="text" className="form-control" name="lastname"
+                //  value={inputs.description || ""}
+                onChange={this.handleChange} />
+            </div>
+            <div className="col-md-3">
               <br />
-              <button className="btn btn-success float-right">
-                <span>Search</span>
+              <button className="btn btn-warning">
+                <span>Update</span>
               </button>
             </div>
           </div>
         </form>
-
-
-        <h2 className="text-center">Job List</h2>
-        <br></br>
-        <div className="row">
-          <table className="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th> Description</th>
-                <th> State</th>
-                <th> City</th>
-                <th> Company</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.jobs.map((job) => (
-                <tr key={job.id}>
-                  <td> {job.description} </td>
-                  <td> {job.state} </td>
-                  <td> {job.city}</td>
-                  <td> {job.companyName}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </div>
     );
   }
 }
 
-export default JobList;
+export default StudentList;

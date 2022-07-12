@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-export default class Profile extends Component {
+export default class JobExperiance extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
       <div className="container">
-        <h1>Profile Update</h1>
-        <p>Please fill in this form to create an account.</p>
+        <h1>Professional Job Experiance</h1>
         <hr />
         <form class="form-inline">
           <div className="row">
@@ -36,6 +35,10 @@ export default class Profile extends Component {
               </select>
             </div>
             <div className="col-md-4">
+              <label for="email">Password:</label>
+              <input type="password" class="form-control" />
+            </div>
+            <div className="col-md-4">
               <label>Major:</label>
               <input type="text" class="form-control" />
             </div>
@@ -47,14 +50,10 @@ export default class Profile extends Component {
               <label>City:</label>
               <input type="text" class="form-control" />
             </div>
-            <div className="col-md-4">
-              <label>Resume Upload:</label>
-              <input type="file" class="form-control" />
-            </div>
-            <div className="col-md-4">
+            <div className="col-md-12">
               <br/>
-              <button className="btn btn-warning">
-                <span>Update</span>
+              <button className="btn btn-success float-right">
+                <span>Registration</span>
               </button>
             </div>
           </div>

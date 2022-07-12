@@ -3,7 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import ApiService from "../../services/ApiService";
-
+import { Redirect } from 'react-router';
 const required = (value) => {
   if (!value) {
     return (
@@ -27,6 +27,7 @@ export default class Login extends Component {
       message: "",
     };
   }
+
   onChangeUsername(e) {
     this.setState({
       username: e.target.value,
@@ -55,7 +56,10 @@ export default class Login extends Component {
         (response) => {
           if (response.data.access_token) {
             localStorage.setItem("user", JSON.stringify(response.data));
-            window.location.href = "/dashboard";
+            // window.location.href = "/dashboard";
+
+            return (<Redirect to="/dashboard" />);
+            
           }
         },
         (error) => {
@@ -81,7 +85,8 @@ export default class Login extends Component {
     return (
       <div className="row">
         <div className="col-md-3"></div>
-        <div className="col-md-6">
+        <div className="col-md-3">
+          <br></br><br></br><br></br>
           <div className="card card-container">
             <img
               src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -117,10 +122,9 @@ export default class Login extends Component {
                 />
               </div>
               <div className="form-group">
-                <button
-                  className="btn btn-primary btn-block"
-                  disabled={this.state.loading}
-                >
+                <br/>
+                <button className="btn btn-primary btn-block"
+                  disabled={this.state.loading} >
                   {this.state.loading && (
                     <span className="spinner-border spinner-border-sm"></span>
                   )}

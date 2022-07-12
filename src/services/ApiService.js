@@ -40,9 +40,12 @@ class ApiService {
     }
 
     // API Absulate Url
-    JOB_LIST = "student/get-job";
+    JOB_LIST = "common/get-job";
     JOB_POST = "student/post-job";
     TAG_LIST = "common/getAllTag";
+    SEARCH_JOB = "common/search-job";
+    STUDENT_LIST = "faculty/all-student";
+    SEARCH_STUDENT = "faculty/search-student";
 }
 
 export default new ApiService();

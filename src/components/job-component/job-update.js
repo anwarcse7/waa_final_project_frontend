@@ -1,14 +1,8 @@
 import React, { Component } from "react";
 import Multiselect from "multiselect-react-dropdown";
 import ApiService from "../../services/ApiService";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-// const notify = () => toast.info("Wow so easy!");
-
-let selectTag = [];
-
-class JobPost extends Component {
+export default class JobUpdate extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,31 +31,18 @@ class JobPost extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let modifiedTag = selectTag.map(function(element){
-      return element.tags;
-    });
     const data = {
       id: null,
       description: this.state.description,
-      tag: modifiedTag,
+      tag: ["Tag 1", "Tag 2"],
       state: this.state.state,
       city: this.state.city,
       companyName: this.state.companyName,
     };
+    console.log(data);
     ApiService.postData(ApiService.JOB_POST, data).then(
       (res) => {
-        // const navigate = useNavigate();
-        // navigate("/job-list");
-        // this.props.navigate('/crime');
-        toast.success('Data Save Success', {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
+        console.log(res);
       },
       (error) => {
         console.log(error);
@@ -69,33 +50,29 @@ class JobPost extends Component {
     );
   }
 
-  onSelect(selectedList, selectedItem) {
-    selectTag = selectedList;
-  }
+  onSelect(selectedList, selectedItem) {}
 
-  onRemove(selectedList, removedItem) {
-    selectTag = selectedList;
-  }
+  onRemove(selectedList, removedItem) {}
 
   render() {
     return (
       <div className="container">
         <h1>Job Post</h1>
         <hr />
-        <form className="form-inline" onSubmit={this.handleSubmit}>
+        <form class="form-inline" onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="col-md-6">
               <label>Description:</label>
               <input
                 type="text"
-                className="form-control"
+                class="form-control"
                 name="description"
                 //  value={inputs.description || ""}
                 onChange={this.handleChange}
               />
             </div>
             <div className="col-md-6">
-              <label>Tag:</label>
+              <label for="">Tag:</label>
               <Multiselect
                 options={this.state.tags}
                 onSelect={this.onSelect}
@@ -107,7 +84,7 @@ class JobPost extends Component {
               <label>State:</label>
               <input
                 type="text"
-                className="form-control"
+                class="form-control"
                 name="state"
                 //  value={inputs.state || ""}
                 onChange={this.handleChange}
@@ -117,7 +94,7 @@ class JobPost extends Component {
               <label>City:</label>
               <input
                 type="text"
-                className="form-control"
+                class="form-control"
                 name="city"
                 //  value={inputs.state || ""}
                 onChange={this.handleChange}
@@ -127,7 +104,7 @@ class JobPost extends Component {
               <label>Company Name:</label>
               <input
                 type="text"
-                className="form-control"
+                class="form-control"
                 name="companyName"
                 //  value={inputs.state || ""}
                 onChange={this.handleChange}
@@ -135,16 +112,13 @@ class JobPost extends Component {
             </div>
             <div className="col-md-12">
               <br />
-              <button className="btn btn-success float-right">
-                <span>Save</span>
+              <button className="btn btn-warning">
+                <span>Update</span>
               </button>
             </div>
           </div>
         </form>
-        <ToastContainer />
       </div>
     );
   }
 }
-
-export default JobPost;
