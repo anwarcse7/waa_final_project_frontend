@@ -1,24 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactEcharts from "echarts-for-react"; 
-import { TagCloud } from 'react-tagcloud'
+import { TagCloud } from 'react-tagcloud';
+import axios from "axios";
 
 import Pie from "./pie";
 import StateBar from "./stateBar";
 
 const Dashboard = () => {
     
+  const [studentsByState, setStudentsByState] = useState([]);
+  
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/api/v1/faculty/stat")
+      .then(({ data }) => {
+        setStudentsByState(data);
+        data.map((res,i) =>{
+          console.log(res);
+          return res;
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  
+  // const DataTable = () => {
+  //   return studentsByState.map((res, i) => {
+  //     return <StudentTableRow obj={res} key={i} />;
+  //   });
+  // };
 
     const option = {
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: ['Iowa', 'Texas', 'California', 'Washington']
       },
       yAxis: {
         type: 'value'
       },
       series: [
         {
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: [120, 200, 150, 80, 70],
           type: 'bar'
         }
       ]
