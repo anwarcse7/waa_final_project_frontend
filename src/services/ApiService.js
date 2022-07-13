@@ -51,6 +51,9 @@ class ApiService {
 
     GET_ALLUSER = "admin/get-user";
     APPLY_JOB = "student/apply-job";
+
+    GET_PROFILE = "common/get-profile";
+    UPDATE_PROFILE = "common/update-profile";
 }
 
 export default new ApiService();
