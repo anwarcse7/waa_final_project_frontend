@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Multiselect from "multiselect-react-dropdown";
 import ApiService from "../../services/ApiService";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import StateList from '../../state-data';
 // const notify = () => toast.info("Wow so easy!");
 
 let selectTag = [];
@@ -37,7 +37,7 @@ class JobPost extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let modifiedTag = selectTag.map(function(element){
+    let modifiedTag = selectTag.map(function (element) {
       return element.tags;
     });
     const data = {
@@ -53,7 +53,7 @@ class JobPost extends Component {
         // const navigate = useNavigate();
         // navigate("/job-list");
         // this.props.navigate('/crime');
-        toast.success('Data Save Success', {
+        toast.success("Data Save Success", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -61,7 +61,7 @@ class JobPost extends Component {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          });
+        });
       },
       (error) => {
         console.log(error);
@@ -105,13 +105,22 @@ class JobPost extends Component {
             </div>
             <div className="col-md-4">
               <label>State:</label>
-              <input
+              {/* <input
                 type="text"
                 className="form-control"
                 name="state"
                 //  value={inputs.state || ""}
                 onChange={this.handleChange}
-              />
+              /> */}
+
+              <select className="form-control" name="state"
+                //  value={inputs.state || ""}
+                onChange={this.handleChange}>
+                <option> Select User</option>
+                {StateList.map((result) => (
+                  <option title={result.name}>{result.name}</option>
+                ))}
+              </select>
             </div>
             <div className="col-md-4">
               <label>City:</label>
