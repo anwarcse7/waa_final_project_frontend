@@ -33,7 +33,6 @@ export default class Registration extends Component {
       lastname: this.state.lastname,
       city: this.state.city,
     };
-    console.log(data);
     ApiService.postData(ApiService.REGISTRATION, data).then(
       (res) => {
         // const navigate = useNavigate();
@@ -117,7 +116,7 @@ export default class Registration extends Component {
         </form>
         <Nav.Link as={Link} to="/login" >login </Nav.Link>
 
-        <button onClick={notify}>Notify!</button>
+        {/* <button onClick={notify}>Notify!</button> */}
         <ToastContainer />
       </div>
     );
