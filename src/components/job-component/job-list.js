@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ApiService from "../../services/ApiService";
+import LoginInfo from "../../services/login-info.service";
 
 class JobList extends Component {
   constructor(props) {
@@ -10,12 +13,13 @@ class JobList extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.applyJob = this.applyJob.bind(this);
   }
 
   componentDidMount() {
     ApiService.getAllData(ApiService.JOB_LIST).then((res) => {
       this.setState({ jobs: res.data.jobList });
-      console.log(res);
+      console.log(res.data.jobList);
     });
   }
 
@@ -46,6 +50,30 @@ class JobList extends Component {
         console.log(error);
       }
     );
+  }
+
+  applyJob(id) {
+    const data = {
+      jobId: id
+    }
+    ApiService.postData(ApiService.APPLY_JOB, data).then(
+      (res) => {
+        toast.success('Apply success', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        console.log(res.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
   }
 
 
@@ -99,6 +127,10 @@ class JobList extends Component {
                 <th> State</th>
                 <th> City</th>
                 <th> Company</th>
+                {
+                  (LoginInfo.userType() === "STUDENT") && <th>Action</th>
+                }
+                
               </tr>
             </thead>
             <tbody>
@@ -108,11 +140,22 @@ class JobList extends Component {
                   <td> {job.state} </td>
                   <td> {job.city}</td>
                   <td> {job.companyName}</td>
+                  {
+                  (LoginInfo.userType() === "STUDENT") && <td>
+                  {
+                    (job.postedBy.email != LoginInfo.username()) ?
+                      <button className="btn btn-primary" onClick={() => this.applyJob(job.id)}>A</button> : 
+                      <button className="btn btn-warning">U</button> 
+                  }
+                </td>
+                }
+                  
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        <ToastContainer />
       </div>
     );
   }
