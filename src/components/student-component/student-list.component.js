@@ -95,7 +95,7 @@ class StudentList extends Component {
         </form>
 
 
-        <h2 className="text-center">Job List</h2>
+        <h2 className="text-center">Student List</h2>
         <br></br>
         <div className="row">
           <table className="table table-striped table-bordered">
@@ -106,6 +106,7 @@ class StudentList extends Component {
                 <th> Major</th>
                 <th> GPA</th>
                 <th> City</th>
+                <th> Comment</th>
               </tr>
             </thead>
             <tbody>
@@ -116,6 +117,7 @@ class StudentList extends Component {
                   <td> {student.major}</td>
                   <td> {student.gpa}</td>
                   <td> {student.city}</td>
+                  <td></td>
                 </tr>
               ))}
             </tbody>

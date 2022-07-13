@@ -3,7 +3,12 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import ApiService from "../../services/ApiService";
-import { Redirect } from 'react-router';
+
+import Nav from 'react-bootstrap/Nav';
+import { Link } from "react-router-dom";
+
+
+
 const required = (value) => {
   if (!value) {
     return (
@@ -56,9 +61,7 @@ export default class Login extends Component {
         (response) => {
           if (response.data.access_token) {
             localStorage.setItem("user", JSON.stringify(response.data));
-            // window.location.href = "/dashboard";
-
-            return (<Redirect to="/dashboard" />);
+            window.location.href = "/dashboard";
             
           }
         },
@@ -81,6 +84,7 @@ export default class Login extends Component {
       });
     }
   }
+  
   render() {
     return (
       <div className="row">
@@ -130,6 +134,7 @@ export default class Login extends Component {
                   )}
                   <span>Login</span>
                 </button>
+
               </div>
               {this.state.message && (
                 <div className="form-group">
@@ -145,6 +150,7 @@ export default class Login extends Component {
                 }}
               />
             </Form>
+            <Nav.Link as={Link} to="/registration" >Registration </Nav.Link>
           </div>
         </div>
         <div className="col-md-3"></div>

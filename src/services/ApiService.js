@@ -46,6 +46,11 @@ class ApiService {
     SEARCH_JOB = "common/search-job";
     STUDENT_LIST = "faculty/all-student";
     SEARCH_STUDENT = "faculty/search-student";
+
+    REGISTRATION = "registration/create-user";
+
+    GET_ALLUSER = "admin/get-user";
+    APPLY_JOB = "student/apply-job";
 }
 
 export default new ApiService();
