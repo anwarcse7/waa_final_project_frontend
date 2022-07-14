@@ -54,6 +54,8 @@ class ApiService {
 
     GET_PROFILE = "common/get-profile";
     UPDATE_PROFILE = "common/update-profile";
+
+    STAT_DATA = "faculty/stat";
 }
 
 export default new ApiService();
