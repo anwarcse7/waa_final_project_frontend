@@ -107,7 +107,7 @@ export default class Profile extends Component {
             </div>
             <div className="col-md-4">
               <label>CGPA:</label>
-              <input type="number" className="form-control" name="gpa" defaultValue={this.state.profileData.gpa || ""}
+              <input type="text" className="form-control" name="gpa" defaultValue={this.state.profileData.gpa || ""}
               onChange={this.handleChange} />
             </div>
             <div className="col-md-4">
