@@ -1,7 +1,12 @@
 import axios from "axios";
 
 const MAIN_URL = "http://localhost:8081/api/v1/";
+
 const user = JSON.parse(localStorage.getItem('user'));
+axios.defaults.baseURL = 'http://localhost:8081/api/v1/';
+if (user && user.access_token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${user.access_token}`;
+}
 
 class ApiService {
     getAllData(uri) {
@@ -55,7 +60,9 @@ class ApiService {
     GET_PROFILE = "common/get-profile";
     UPDATE_PROFILE = "common/update-profile";
 
+
     STAT_DATA = "faculty/stat";
+    ACTIVE_INACTIVE_USER = "admin/active-user";
 }
 
 export default new ApiService();
