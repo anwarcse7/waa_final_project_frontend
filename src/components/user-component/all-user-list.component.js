@@ -11,24 +11,35 @@ class AllUserList extends Component {
     this.activeInactive = this.activeInactive.bind(this);
   }
 
-  componentDidMount() {
+  loadUserData() {
     ApiService.getAllData(ApiService.GET_ALLUSER).then((res) => {
       this.setState({ users: res.data.data });
-      console.log(res);
     });
   }
 
-  activeInactive() {
-    // ApiService.postData(ApiService.SEARCH_JOB, data).then(
-    //   (res) => {
-    //     console.log(res.data);
-    //     this.setState({ users: res.data.results });
-    //     console.log(res.data.results);
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+  componentDidMount() {
+    this.loadUserData();
+  }
+
+  activeInactive(id, status) {
+    const data = {
+      userId: id,
+      active: !status
+    }
+
+    console.log(data);
+
+    ApiService.postData(ApiService.ACTIVE_INACTIVE_USER, data).then(
+      (res) => {
+        this.loadUserData();
+        console.log(res.data);
+        // this.setState({ users: res.data.results });
+        // console.log(res.data.results);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   render() {
@@ -63,9 +74,9 @@ class AllUserList extends Component {
                     {" "}
                     {u.active ? (
                       <button
-                        class="btn btn-danger"
+                        className="btn btn-danger"
                         type="submit"
-                        onClick={() => this.activeInactive(u.id)}
+                        onClick={() => this.activeInactive(u.id, u.active)}
                       >
                         I
                       </button>
@@ -73,7 +84,7 @@ class AllUserList extends Component {
                       <button
                         class="btn btn-success"
                         type="submit"
-                        onClick={() => this.activeInactive(u.id)}
+                        onClick={() => this.activeInactive(u.id, u.active)}
                       >
                         A
                       </button>
